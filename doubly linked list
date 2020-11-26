@@ -1,0 +1,112 @@
+package main
+ 
+import "fmt"
+ 
+
+type HeroNode struct {
+	no       int
+	name     string
+	nickname string
+	 Pre *HeroNode // means pointing to the previous node
+	 Next *HeroNode // means pointing to the next node
+}
+ 
+ 
+func InsertHeroNode(head *HeroNode, newHeroNode *HeroNode) {
+	 
+	temp := head
+	
+	for {
+		 If temp.next == nil { 
+			break
+		}
+		 Temp = temp.next 
+	}
+	
+	temp.next = newHeroNode
+	newHeroNode.pre = temp
+}
+ 
+ 
+func InsertHeroNode2(head *HeroNode, newHeroNode *HeroNode) {
+	
+	temp := head
+	flag := true
+	 
+	for {
+		if temp.next == nil {
+			break
+		 } else if temp.next.no > newHeroNode.no { //Note newHeroNode should be inserted after temp
+			break
+		} else if temp.next.no == newHeroNode.no {
+			 / / Description already exists this no
+			flag = false
+			break
+		}
+		temp = temp.next
+	}
+	if !flag {
+		 fmt.Println("Sorry, no=", newHeroNode.no already exists)
+		return
+	} else {
+		newHeroNode.next = temp.next
+		newHeroNode.pre = temp
+		if temp.next != nil {
+			temp.next.pre = newHeroNode
+		}
+		temp.next = newHeroNode
+	}
+}
+ 
+
+func DelHeroNode(head *HeroNode, id int) {
+	temp := head
+	flag := false
+	 
+	for {
+		if temp.next == nil {
+			break
+		} else if temp.next.no == id {
+			 
+			flag = true
+			break
+		}
+		temp = temp.next
+	}
+	 If flag { 
+		temp.next = temp.next.next
+		if temp.next != nil {
+			temp.next.pre = temp
+		}
+	} else {
+		 fmt.Println("The id you want to delete does not exist")
+	}
+}
+ 
+
+func ListHeroNode(head *HeroNode) {
+	 
+	temp := head
+	
+	if temp.next == nil {
+		 fmt.Println(" ")
+		return
+	}
+	 
+	for {
+		if temp.next == nil {
+			break
+		}
+		temp = temp.next
+	}
+	 
+	for {
+		fmt.Printf("[%d, %s, %s]->", temp.no, temp.name, temp.nickname)
+		temp = temp.pre
+		 
+		if temp.pre == nil {
+			break
+		}
+	}
+}
+ 
